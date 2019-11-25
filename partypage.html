@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="script/partypage.js"></script>
     <title>Party Page</title>
     <style>
         body{
@@ -54,12 +55,13 @@
         document.getElementById("demo").innerHTML = days + "d " + hours + "h "
         + minutes + "m " + seconds + "s ";
         //
-        var colors = ["red","green","yellow","blue","black","white"];
+        var r1 = Math.floor((Math.random() * 255) + 0);
+        var r2 = Math.floor((Math.random() * 255) + 0);
+        var r3 = Math.floor((Math.random() * 255) + 0);
         //
-        // $("#b1").css("background-color",colors[Math.floor((Math.random() * colors.length) + 0)]);
-        $("#b1").css("background-color",`rgb(144, 240, 236)`);
-        //rgb(125, 125, 236)
+        $("#b1").css("background-color","rgb(" + r1 + "," + r2 + "," + r3 + ")");
         //
+        $("#ano").text((new Date).getFullYear());
         // If the count down is finished, write some text
         if (distance < 0) {
         clearInterval(x);
@@ -68,7 +70,7 @@
         }, 1000);
     </script>
     <footer>
-        <div id="rodape" style="text-align: center;"> &copy; Ismael Ribeiro Moura, 2019, São Paulo - SP - Brazil</div>
+        <div id="rodape" style="text-align: center;"> &copy; Ismael Ribeiro Moura, <span id="ano"></span>, São Paulo - SP - Brazil</div>
     </footer>
 </body>
 </html>
