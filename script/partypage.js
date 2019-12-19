@@ -1,5 +1,17 @@
+//Previsão chegada em Fortaleza
+var dataChegadaFortaleza = "Dec 21, 2019 09:35:00";
+
+//Previsão chegada em São Paulo
+var dataChegadaSaoPaulo = "Jan 1, 2020 04:45:00";
+
+//chegada ao destino Fortaleza
+var chegueiaFortaleza = false;
+
+//chegada ao destino São Paulo
+var chegueiaSaoPaulo = false;
+
 // Set the date we're counting down to
-var countDownDate = new Date("Dec 21, 2019 09:35:00").getTime();
+var countDownDate = new Date(dataChegadaFortaleza).getTime();
                 
 // Update the count down every 1 second
 var x = setInterval(function() {
