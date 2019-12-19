@@ -3,7 +3,7 @@ var textoDespedida = `Se você está vendo esta mensagem. Ou ainda não atualize
 Se tiver acontecido algo. Agradeço a vida que tive e amo muito minha família.`;
 
 //Previsão chegada em Fortaleza
-var dataChegadaFortaleza = "Dec 19, 2019 10:00:00";//Dec 21, 2019 09:35:00
+var dataChegadaFortaleza = "Dec 21, 2019 09:35:00";//Dec 21, 2019 09:35:00
 
 //Previsão chegada em São Paulo
 var dataChegadaSaoPaulo = "Jan 1, 2020 04:45:00";
