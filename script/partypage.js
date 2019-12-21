@@ -9,7 +9,7 @@ var dataChegadaFortaleza = "Dec 21, 2019 09:35:00";//Dec 21, 2019 09:35:00
 var dataChegadaSaoPaulo = "Jan 1, 2020 04:45:00";
 
 //chegada ao destino Fortaleza
-var chegueiaFortaleza = false;
+var chegueiaFortaleza = true;
 
 //chegada ao destino São Paulo
 var chegueiaSaoPaulo = false;
