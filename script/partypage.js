@@ -12,7 +12,7 @@ var dataChegadaSaoPaulo = "Jan 1, 2020 04:45:00";
 var chegueiaFortaleza = true;
 
 //chegada ao destino São Paulo
-var chegueiaSaoPaulo = false;
+var chegueiaSaoPaulo = true;
 
 // Set the date we're counting down to
 var countDownDate = new Date(dataChegadaFortaleza).getTime();
