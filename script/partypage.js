@@ -64,7 +64,7 @@ clearInterval(x);
         var chegueiaFortaleza_ = true;
 
         //chegada ao destino São Paulo
-        var chegueiaSaoPaulo_ = false;
+        var chegueiaSaoPaulo_ = true;
 
         // Set the date we're counting down to
         var countDownDate_ = new Date(dataChegadaSaoPaulo_).getTime();
