@@ -106,7 +106,7 @@ clearInterval(x);
             document.getElementById("demo2").innerHTML = `\u{2721} 30/12/1989  \u{0271D} 21/12/2019`;
         }else{
             document.getElementById("demo").innerHTML = `Happy New Year !!!`;
-            document.getElementById("demo2").innerHTML = `2020`;   
+            document.getElementById("demo2").innerHTML = ``;   
         }
     }
 }, 1000);
