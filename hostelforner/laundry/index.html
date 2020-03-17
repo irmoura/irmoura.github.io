@@ -6,6 +6,56 @@
     <title>Hostel Forner</title>
     <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/site.css" />
+    <style>
+        table, th, td {
+            border: 1px solid #000;
+            text-align: center;
+        }
+
+        th, td {
+            padding: 7px
+        }
+
+        .nome {
+            background-color: red
+        }
+
+        .email {
+            background-color: green
+        }
+
+        .cabecalho {
+            background-color: orange
+        }
+
+        .linha1 {
+            background-color: darkgray
+        }
+
+        .linha2 {
+            background-color: lightskyblue
+        }
+
+        .linha3 {
+            background-color: lightpink
+        }
+
+        .linha4 {
+            background-color: lightgreen
+        }
+
+        .linha5 {
+            background-color: lightpink
+        }
+
+        .linha6 {
+            background-color: powderblue
+        }
+
+        .linha7 {
+            background-color: red
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -66,14 +116,21 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            <div class="text-center">
-                <h1 class="display-4">Seja bem-vindo</h1>
-            </div>
-        </main>
+    <div>
+        <img src="../img/maquinadelavar.png" title="Electrolux LAC11" alt="LAC11" width="400" style="float:left">
+        <table id="laundryTable">
+            <colgroup>
+                <col class="nome">
+                <col class="email">
+            </colgroup>
+            <tbody>
+                <tr class="cabecalho">
+                    <th>Dia</th>
+                    <th>Nomes</th>
+                </tr>
+            </tbody>
+        </table></div></br>
     </div>
-
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2020 - Hostel Forner - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -83,6 +140,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="../lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/site.js"></script>
-    <script src="../js/hostelforner/teste.js"></script>
+    <script src="../js/laundry/index.js"></script>
 </body>
 </html>
