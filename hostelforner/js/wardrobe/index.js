@@ -1,43 +1,62 @@
+var wardrobe1 = [];
+var wardrobe2 = [];
+var html = ``;
+var count = 1;
+
 $(document).ready(function () {
-
-    var wardrobe1 = [
-        ['', 'Guilherme', 'Johnny', 'Rubão'],
-        ['Larissa C.', 'Juliana', 'Ismael R.', 'Breno'],
-        ['Bruno', 'Márcia', 'Neto', 'Criss'],
-        ['Rick', 'Larissa', 'Mariana', 'Juliana Motty'],
-        ['Filipe', 'Cesar', 'Fábio', 'Hadryel']
-    ];
-
-    var html_1 = ``;
-
-    for(var i = 0; i < 5; i++){
-        html_1 += `<tr>`;
-        for(var j = 0; j < 4; j++){
-            html_1 += `<td>${wardrobe1[i][j]}</td>`;
+    var jqxhr = $.get( "https://webhooks.mongodb-stitch.com/api/client/v2.0/app/sisa-hwgco/service/api/incoming_webhook/webhook0", function(data) {
+        $(data).each(function (i) {
+            var haveWardrobe = data[i].HospedeTemArmario;
+            if(haveWardrobe){
+                if(data[i].HospedeArmario < 21){
+                    var oItem = {
+                        Nome: data[i].HospedeNome,
+                        Armario: `${data[i].HospedeArmario}`
+                    }
+                    wardrobe1.push(oItem)
+                }else{
+                    var oItem2 = {
+                        Nome: data[i].HospedeNome,
+                        Armario: `${data[i].HospedeArmario}`
+                    }
+                    wardrobe2.push(oItem2)
+                }
+            }
+        });
+    }).done(function() {
+        //
+        for(var i = 0; i < 5; i++){
+            html += `<tr>`;
+            for(var j = 0; j < 4; j++){
+                var index = wardrobe1.findIndex(a => a.Armario == `${count}`);
+                if(index === -1){
+                    html += `<td></td>`;
+                }else{
+                    var nome = wardrobe1[index].Nome
+                    html += `<td>${nome}</td>`;
+                }
+                count++;
+            };
+            html += `</tr>`;
         };
-        html_1 += `</tr>`;
-    };
-
-    $('#wardrobe1').append(html_1);
-
-    //
-
-    var wardrobe2 = [
-        ['Edvaldo', 'Clovis'],
-        ['Lígia', 'Sabrina'],
-        ['Jéssica', 'Isabella'],
-        ['', '']
-    ];
-
-    var html_2 = ``;
-
-    for(var i = 0; i < 4; i++){
-        html_2 += `<tr>`;
-        for(var j = 0; j < 2; j++){
-            html_2 += `<td>${wardrobe2[i][j]}</td>`;
+        $('#wardrobe1').append(html);
+        //
+        html = ``;
+        //
+        for(var i = 0; i < 4; i++){
+            html += `<tr>`;
+            for(var j = 0; j < 2; j++){
+                var index = wardrobe2.findIndex(a => a.Armario == `${count}`);
+                if(index === -1){
+                    html += `<td></td>`;
+                }else{
+                    var nome = wardrobe2[index].Nome
+                    html += `<td>${nome}</td>`;
+                }
+                count++;
+            };
+            html += `</tr>`;
         };
-        html_2 += `</tr>`;
-    };
-
-    $('#wardrobe2').append(html_2);
+        $('#wardrobe2').append(html);
+    });
 });
