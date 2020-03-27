@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,13 +8,14 @@
     <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/site.css" />
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" href="#">Hostel Forner</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
@@ -23,26 +25,32 @@
                             <a class="nav-link text-dark" href="../home/index.html">Home</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Controle</a>
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Controle</a>
                             <div class="dropdown-menu" aria-labelledby="dropdown07">
                                 <a class="dropdown-item" href="../guest/index.html">Hospedes</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Modalities" asp-action="Index">Modalidades</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Modalities"
+                                    asp-action="Index">Modalidades</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Financeiro</a>
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown08" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Financeiro</a>
                             <div class="dropdown-menu" aria-labelledby="dropdown08">
-                                <a class="dropdown-item" asp-area="" asp-controller="Guest" asp-action="Index">Hospedes</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Guest"
+                                    asp-action="Index">Hospedes</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pesquisa</a>
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Pesquisa</a>
                             <div class="dropdown-menu" aria-labelledby="dropdown09">
                                 <a class="dropdown-item" asp-area="" href="../search/birthdays.html">Aniversariantes</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Utilitarios</a>
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Utilitarios</a>
                             <div class="dropdown-menu" aria-labelledby="dropdown10">
                                 <a class="nav-link text-dark" href="../laundry/index.html">Máquina de lavar</a>
                                 <a class="nav-link text-dark" href="../wardrobe/index.html">Armários</a>
@@ -50,15 +58,19 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Relatorios</a>
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Relatorios</a>
                             <div class="dropdown-menu" aria-labelledby="dropdown07">
-                                <a class="dropdown-item" asp-area="" asp-controller="Guest" asp-action="Index">Hospedes</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Guest"
+                                    asp-action="Index">Hospedes</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Informacoes</a>
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Informacoes</a>
                             <div class="dropdown-menu" aria-labelledby="dropdown07">
-                                <a class="dropdown-item" asp-area="" asp-controller="Guest" asp-action="Index">Hospedes</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Guest"
+                                    asp-action="Index">Hospedes</a>
                             </div>
                         </li>
                     </ul>
@@ -83,6 +95,27 @@
             <option value="11">Dezembro</option>
         </select>
     </p>
+    <table id="tableNomes" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Dia
+                </th>
+                <th>
+                    Tipo
+                </th>
+                <th>
+                    Matr/Cód
+                </th>
+                <th>
+                    Nome
+                </th>
+                <th>
+                    Telefone
+                </th>
+            </tr>
+        </thead>
+    </table>
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2020 - Hostel Forner - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -94,4 +127,5 @@
     <script src="../js/site.js"></script>
     <script src="../js/search/birthdays.js"></script>
 </body>
+
 </html>
