@@ -1,4 +1,5 @@
 var guests = [];
+var numberLong = [];
 
 $(document).ready(function () {
 
@@ -16,31 +17,43 @@ $(document).ready(function () {
         });
     }).done(function () {
         $(guests).each(function (i) {
-            var dateType1 = `${guests[i].DiaNascimento}`
-            var dateType2 = dateType1.substring(25, 37)
-            var dateType3 = new Date(parseInt(dateType2))
-            //
-            var diaNascimento = dateType3.getDate()
-            var telefone = `${guests[i].Telefone}`
-            var id = `${guests[i].ID}`
-            var nome = `${guests[i].Nome}`
-            $('#tableNomes').append(`<tr><td>${diaNascimento}</td><td>Hospede</td><td>${id}</td><td>${nome}</td><td>${telefone}</td></tr>`)
+            var dateValue = `${guests[i].DiaNascimento}`
+            if (dateValue === 'undefined') {
+
+            } else {
+                var dateType1 = `${guests[i].DiaNascimento}`
+                var dateType2 = dateType1.substring(25, 37)
+                var dateType3 = new Date(parseInt(dateType2))
+                //
+                var diaNascimento = dateType3.getDate()
+                var telefone = `${guests[i].Telefone}`
+                var id = `${guests[i].ID}`
+                var nome = `${guests[i].Nome}`
+                $('#tableNomes').append(`<tr><td>${diaNascimento}</td><td>Hospede</td><td>${id}</td><td>${nome}</td><td>${telefone}</td></tr>`)
+            }
         });
     });
 
     $("#selectMes").on('change', function () {
         $('#tableNomes tbody').empty();
         $(guests).each(function (i) {
-            var dateType1 = `${guests[i].DiaNascimento}`
-            var dateType2 = dateType1.substring(25, 40)
-            var dateType3 = new Date(parseInt(dateType2))
-            //
-            var diaNascimento = guests[i].DiaNascimento
-            var telefone = `${guests[i].Telefone}`
-            var id = `${guests[i].ID}`
-            var nome = `${guests[i].Nome}`
-            if (`${dateType3.getMonth()}` === $('#selectMes').find(":selected").val()) {
-                $('#tableNomes').append(`<tr><td>${diaNascimento}</td><td>Hospede</td><td>${id}</td><td>${nome}</td><td>${telefone}</td></tr>`)
+            var dateValue = `${guests[i].DiaNascimento}`
+            if (dateValue === 'undefined') {
+                // alert('???')
+            } else {
+                var dateType1 = `${guests[i].DiaNascimento}`
+                numberLong = dateType1.split(':');
+                numberLong[2] = numberLong[2].substring(1, (numberLong[2].length - 3));
+                var dateType3 = new Date(parseInt(numberLong[2]))
+                //
+                var diaNascimento = dateType3.getDate()
+                var telefone = `${guests[i].Telefone}`
+                var id = `${guests[i].ID}`
+                var nome = `${guests[i].Nome}`
+                var mesInt = dateType3.getMonth()
+                if (`${mesInt}` === $('#selectMes').find(":selected").val()) {
+                    $('#tableNomes').append(`<tr><td>${diaNascimento}</td><td>Hospede</td><td>${id}</td><td>${nome}</td><td>${telefone}</td></tr>`)
+                }
             }
         });
     });
