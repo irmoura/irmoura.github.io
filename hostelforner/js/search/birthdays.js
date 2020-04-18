@@ -46,13 +46,17 @@ $(document).ready(function () {
                 numberLong[2] = numberLong[2].substring(1, (numberLong[2].length - 3));
                 var dateType3 = new Date(parseInt(numberLong[2]))
                 var dateType4 = moment(parseInt(numberLong[2]))
+                var stillUtc = moment.utc(dateType4).toDate()
+                // dateType4 = moment(stillUtc).local().format('YYYY-MM-DD HH:mm:ss')
                 //
                 var diaNascimento = dateType3.getDate()
                 var telefone = `${guests[i].Telefone}`
                 var id = `${guests[i].ID}`
                 var nome = `${guests[i].Nome}`
-                var mesInt = dateType3.getMonth()
+                var mesInt = dateType4.month()
                 if (`${mesInt}` === $('#selectMes').find(":selected").val()) {
+                    // console.log(`${stillUtc}`)
+                    console.log(`${dateType4}`)
                     $('#tableNomes').append(`<tr><td>${diaNascimento}</td><td>Hospede</td><td>${id}</td><td>${nome}</td><td>${telefone}</td></tr>`)
                 }
             }
