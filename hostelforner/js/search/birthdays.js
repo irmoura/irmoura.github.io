@@ -46,8 +46,6 @@ $(document).ready(function () {
                 numberLong[2] = numberLong[2].substring(1, (numberLong[2].length - 3));
                 var dateType3 = new Date(parseInt(numberLong[2]))
                 var dateType4 = moment(parseInt(numberLong[2]))
-                var stillUtc = moment.utc(dateType4).toDate()
-                // dateType4 = moment(stillUtc).local().format('YYYY-MM-DD HH:mm:ss')
                 //
                 var diaNascimento = dateType3.getDate()
                 var telefone = `${guests[i].Telefone}`
