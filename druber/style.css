@@ -1,0 +1,132 @@
+body{
+    background-color: rgb(0, 0, 39);
+}
+
+main{
+    background-color: rgb(117, 117, 117);
+    width: 40%;
+    height: 100%;
+    margin: auto;
+    border-radius: 8px;
+    color: white;
+}
+
+#hero{
+    height: 12.5rem;
+    width: 100%;
+    position: relative;
+    color: white;
+}
+
+#hero h2{
+    padding: 2rem;
+    padding-left: 46%;
+    padding-top: 50px;
+    font-family: 'Montserrat';
+    font-weight: 700;
+    font-size: 2.2rem;
+    line-height: 44px;
+    text-shadow: 0px 4px 4px black;
+}
+
+#hero::before{
+    content: '';
+    height: 80%;
+    width: 100%;
+    background-image: url(https://img.freepik.com/fotos-premium/ceu-noturno-com-estrelas-foto-em-grande-resistencia_217333-1396.jpg?w=1380);
+    position: absolute;
+    background-size: cover;
+    z-index: -1;
+    box-shadow: inset 0 -100px 100px rgba(0, 0, 0, 0.589);
+}
+
+h1{
+    text-align: center;
+    padding-top: 15px;
+    color: white;
+}
+
+.progresso-bar{
+    --progress: 10;
+    height: 30px;
+    padding: 5px;
+    margin: 10px;
+    background-color: #ccc;
+    display: flex;
+    border-radius: 5px;
+}
+
+.progresso-bar::before{
+    content: "";
+    width: calc(var(--progress) * 1%);
+    background-color: hsl(calc(var(--progress) * 1.2), 80%, 50%);
+    transition: all 0.2s ease;
+    background-image: url(https://art.pixilart.com/edfacf497337dbf.png);
+}
+
+.progresso-bateria{
+    --progress: 100;
+    height: 20px;
+    padding: 5px;
+    margin: 10px;
+    background-color: #ccc;
+    display: flex;
+    border-radius: 5px;
+}
+
+.progresso-bateria::before{
+    content: '';
+    width: calc(var(--progress) * 1%);
+    background-color: hsl(calc(var(--progress)*1.2), 80%, 50%);
+    transition: all 0.2s ease;
+    background-image: url(https://art.pixilart.com/edfacf497337dbf.png);
+}
+
+p{
+    display: inline-block;
+}
+
+h2{
+    margin-left: 10px;
+}
+
+h3{
+    margin-left: 10px;
+}
+
+.edit{
+    width: 287px;
+    height: 40px;
+    background-color: #0B50A0;
+    color: white;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 20px;
+    cursor: pointer;
+}
+
+#solicitar{
+    margin-left: 30%;
+}
+
+#digita{
+    margin-left: 10px;
+}
+
+.botao{
+    margin-left: 50px;
+}
+
+#img{
+    display: inline-block;
+}
+
+img{
+    height: 100px;
+    margin: 10px;
+}
+
+#botoes{
+    width: 1000px;
+}
