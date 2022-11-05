@@ -2,7 +2,7 @@ class drone {
     constructor(bateria, altitude, velocidade) {
         this.bateria = bateria
         this.altitude = altitude
-        this.velocidade = velocidade
+        this.velocidade = velocidade / 3.6//conversão de km/h => m/s
     }
 
     name() {
