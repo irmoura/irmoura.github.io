@@ -110,7 +110,8 @@ h3 {
 }
 
 #solicitar {
-    margin-left: 30%;
+    margin-left: 35%;
+    border-radius: 8px;
 }
 
 #digita {
@@ -130,10 +131,16 @@ img {
     margin: 10px;
 }
 
+#mercado{
+    margin-left: 120px;
+}
+
 #botoes {
     width: 1000px;
 }
 
 #cancelar{
     background-color: red;
+    margin-left: 35%;
+    border-radius: 8px;
 }
