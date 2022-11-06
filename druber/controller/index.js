@@ -11,7 +11,7 @@ $(function () {
         new estabelecimento("Sam's Club", 3),
         new estabelecimento('Farmácia', 2.5),
         new estabelecimento('Padaria', 2),
-        new estabelecimento('Renner', 1.5)
+        new estabelecimento('Renner', 1)
     )
 
     var drone_ = new drone(100, 0, 60)
@@ -98,7 +98,7 @@ $(function () {
         if (drone_.bateria >= 0) {
             document.documentElement.style.setProperty('--battery-level', drone_.bateria)
             $('#bateria').text(`Bateria: ${drone_.bateria}%`)
-            if (timeCount == 60) {
+            if (timeCount == 45) {
                 drone_.bateria--
                 timeCount = 0
             }
