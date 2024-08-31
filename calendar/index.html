@@ -38,6 +38,17 @@
             /* Adiciona um espaço abaixo da div, opcional */
         }
 
+        .countdown {
+            font-weight: bold;
+            display: block;
+            text-align: center;
+            margin: 0 auto;
+            background-color: blueviolet;
+            max-width: 700px;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
         .month span {
             color: black;
             /*para conseguir setar o tamanho dele*/
@@ -83,6 +94,11 @@
 </head>
 
 <body>
+    <div>
+        <div>
+            <span class="countdown" id="countdown">0 Dias 0 Horas 0 Minutos 0 Segundos</span>
+        </div>
+    </div><!--WRAPER-->
     <div class="wraper">
         <div class="month">
             <span>Agosto</span>
@@ -221,6 +237,35 @@
         for (i = 1; i <= 31; i++) {
             eldez.innerHTML += `<span>${i}</span>`;
         }
+
+        //
+
+        // Define a data alvo para a contagem regressiva
+        const targetDate = new Date('December 4, 2024 00:00:00').getTime();
+
+        // Atualiza a contagem regressiva a cada segundo
+        const countdown = setInterval(() => {
+            // Obtém a data e hora atuais
+            const now = new Date().getTime();
+
+            // Calcula a diferença entre a data alvo e a data atual
+            const distance = targetDate - now;
+
+            // Calcula os dias, horas, minutos e segundos restantes
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Exibe o resultado em um único span
+            document.getElementById('countdown').innerHTML = `${days} Dias ${hours} Horas ${minutes} Minutos ${seconds} Segundos`;
+
+            // Se a contagem regressiva acabar, exibe uma mensagem
+            if (distance < 0) {
+                clearInterval(countdown);
+                document.querySelector('.countdown').innerHTML = "Contagem regressiva encerrada!";
+            }
+        }, 1000);
     </script>
 </body>
 
