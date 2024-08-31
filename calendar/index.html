@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário S2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #333;
+        }
+
+        .wraper {
+            max-width: 760px;
+            margin: 10px auto;
+            background-color: blueviolet;
+            padding: 20px;
+            display: flex;
+            border-radius: 8px;
+            flex-wrap: wrap;
+        }
+
+        .month {
+            display: flex;
+            justify-content: center;
+            /* Centraliza o span horizontalmente */
+            align-items: center;
+            /* Centraliza o span verticalmente */
+            width: 100%;
+            /* Garante que a div ocupe toda a largura disponível */
+            margin-bottom: 20px;
+            /* Adiciona um espaço abaixo da div, opcional */
+        }
+
+        .month span {
+            color: black;
+            /*para conseguir setar o tamanho dele*/
+            font-weight: bold;
+            font-size: larger;
+            display: inline-block;
+            /*100/7 = 14.2*/
+            width: 14.2%;
+        }
+
+        .days-week {
+            display: flex;
+            width: 100%;
+            flex-wrap: wrap;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .number-days {
+            display: flex;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .days-week span {
+            color: black;
+            /*para conseguir setar o tamanho dele*/
+            font-weight: bold;
+            display: inline-block;
+            /*100/7 = 14.2*/
+            width: 14.2%;
+        }
+
+        .number-days span {
+            /*para conseguir setar o tamanho dele*/
+            display: inline-block;
+            /*100/7 = 14.2*/
+            width: 14.2%;
+            margin: 8px 0;
+            color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wraper">
+        <div class="month">
+            <span>Agosto</span>
+        </div>
+        <div class="days-week">
+            <span>Seg</span>
+            <span>Ter</span>
+            <span>Qua</span>
+            <span>Qui</span>
+            <span>Sex</span>
+            <span>Sáb</span>
+            <span>Dom</span>
+        </div>
+
+        <div class="number-days" id="ago">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div><!--WRAPER-->
+    <!--  -->
+    <div class="wraper">
+        <div class="month">
+            <span>Setembro</span>
+        </div>
+        <div class="days-week">
+            <span>Seg</span>
+            <span>Ter</span>
+            <span>Qua</span>
+            <span>Qui</span>
+            <span>Sex</span>
+            <span>Sáb</span>
+            <span>Dom</span>
+        </div>
+
+        <div class="number-days" id="set">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div><!--WRAPER-->
+    <!--  -->
+    <div class="wraper">
+        <div class="month">
+            <span>Outubro</span>
+        </div>
+        <div class="days-week">
+            <span>Seg</span>
+            <span>Ter</span>
+            <span>Qua</span>
+            <span>Qui</span>
+            <span>Sex</span>
+            <span>Sáb</span>
+            <span>Dom</span>
+        </div>
+
+        <div class="number-days" id="out">
+            <span></span>
+        </div>
+    </div><!--WRAPER-->
+    <!--  -->
+    <div class="wraper">
+        <div class="month">
+            <span>Novembro</span>
+        </div>
+        <div class="days-week">
+            <span>Seg</span>
+            <span>Ter</span>
+            <span>Qua</span>
+            <span>Qui</span>
+            <span>Sex</span>
+            <span>Sáb</span>
+            <span>Dom</span>
+        </div>
+
+        <div class="number-days" id="nov">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div><!--WRAPER-->
+    <!--  -->
+    <div class="wraper">
+        <div class="month">
+            <span>Dezembro</span>
+        </div>
+        <div class="days-week">
+            <span>Seg</span>
+            <span>Ter</span>
+            <span>Qua</span>
+            <span>Qui</span>
+            <span>Sex</span>
+            <span>Sáb</span>
+            <span>Dom</span>
+        </div>
+
+        <div class="number-days" id="dez">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div><!--WRAPER-->
+    <script>
+        let elago = document.querySelector('#ago');
+        let elset = document.querySelector('#set');
+        let elout = document.querySelector('#out');
+        let elnov = document.querySelector('#nov');
+        let eldez = document.querySelector('#dez');
+        //
+        for (i = 1; i <= 31; i++) {
+            elago.innerHTML += `<span>${i}</span>`;
+        }
+
+        for (i = 1; i <= 30; i++) {
+            elset.innerHTML += `<span>${i}</span>`;
+        }
+
+        for (i = 1; i <= 31; i++) {
+            elout.innerHTML += `<span>${i}</span>`;
+        }
+
+        for (i = 1; i <= 30; i++) {
+            elnov.innerHTML += `<span>${i}</span>`;
+        }
+
+        for (i = 1; i <= 31; i++) {
+            eldez.innerHTML += `<span>${i}</span>`;
+        }
+    </script>
+</body>
+
+</html>
