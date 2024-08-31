@@ -212,33 +212,44 @@
         </div>
     </div><!--WRAPER-->
     <script>
+        //
+        function getColorForDate(year, month, day) {
+            // Cria uma nova data com o ano, mês e dia fornecidos
+            const targetDate = new Date(year, month - 1, day); // Mês é zero-indexado
+            const now = new Date(); // Obtém a data e hora atuais
+
+            // Retorna "red" se a data for menor ou igual à data atual, caso contrário retorna "white"
+            return targetDate <= now ? 'red' : 'white';
+        }
+        //
         let elago = document.querySelector('#ago');
         let elset = document.querySelector('#set');
         let elout = document.querySelector('#out');
         let elnov = document.querySelector('#nov');
         let eldez = document.querySelector('#dez');
         //
-        for (i = 4; i <= 31; i++) {
-            elago.innerHTML += `<span style="color: red">${i}</span>`;
-        }
-
-        for (i = 1; i <= 30; i++) {
-            elset.innerHTML += `<span>${i}</span>`;
-        }
-
-        for (i = 1; i <= 31; i++) {
-            elout.innerHTML += `<span>${i}</span>`;
-        }
-
-        for (i = 1; i <= 30; i++) {
-            elnov.innerHTML += `<span>${i}</span>`;
-        }
-
-        for (i = 1; i <= 31; i++) {
-            eldez.innerHTML += `<span>${i}</span>`;
-        }
-
+        // Obtém a data atual
+        const now = new Date();
         //
+        for (i = 4; i <= 31; i++) {
+            elago.innerHTML += `<span style="color: ${getColorForDate(2024, 8, i)}">${i}</span>`;
+        }
+
+        for (i = 1; i <= 30; i++) {
+            elset.innerHTML += `<span style="color: ${getColorForDate(2024, 9, i)}">${i}</span>`;
+        }
+
+        for (i = 1; i <= 31; i++) {
+            elout.innerHTML += `<span style="color: ${getColorForDate(2024, 10, i)}">${i}</span>`;
+        }
+
+        for (i = 1; i <= 30; i++) {
+            elnov.innerHTML += `<span style="color: ${getColorForDate(2024, 11, i)}">${i}</span>`;
+        }
+
+        for (i = 1; i <= 31; i++) {
+            eldez.innerHTML += `<span style="color: ${getColorForDate(2024, 12, i)}">${i}</span>`;
+        }
 
         // Define a data alvo para a contagem regressiva
         const targetDate = new Date('December 4, 2024 00:00:00').getTime();
