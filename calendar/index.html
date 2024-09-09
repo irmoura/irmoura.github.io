@@ -254,14 +254,21 @@
         }
 
         for (i = 1; i <= 30; i++) {
-            elnov.innerHTML += `<span style="color: ${getColorForDate(2024, 11, i)}">${i == 5 ? "❤️" : i}</span>`;
+            switch (i) {
+                case 5:
+                    elnov.innerHTML += `<span style="color: ${getColorForDate(2024, 11, i)}">${"❤️"}</span>`;
+                    break;
+                case 29:
+                    elnov.innerHTML += `<span style="color: ${getColorForDate(2024, 11, i)}">${"✈️"}</span>`;
+                    break;
+                default:
+                    elnov.innerHTML += `<span style="color: ${getColorForDate(2024, 11, i)}">${i}</span>`;
+                    break;
+            }
         }
 
         for (i = 1; i <= 31; i++) {
             switch (i) {
-                case 4:
-                    eldez.innerHTML += `<span style="color: ${getColorForDate(2024, 12, i)}">${"✈️"}</span>`;
-                    break;
                 case 5:
                     eldez.innerHTML += `<span style="color: ${getColorForDate(2024, 12, i)}">${"❤️"}</span>`;
                     break;
@@ -272,7 +279,7 @@
         }
 
         // Define a data alvo para a contagem regressiva
-        const targetDate = new Date('December 4, 2024 00:00:00').getTime();
+        const targetDate = new Date('November 29, 2024 13:10:00').getTime();
 
         // Atualiza a contagem regressiva a cada segundo
         const countdown = setInterval(() => {
