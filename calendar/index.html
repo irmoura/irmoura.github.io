@@ -232,23 +232,43 @@
         const now = new Date();
         //
         for (i = 4; i <= 31; i++) {
-            elago.innerHTML += `<span style="color: ${getColorForDate(2024, 8, i)}">${i}</span>`;
+            elago.innerHTML += `<span style="color: ${getColorForDate(2024, 8, i)}">${i == 5 ? "❤️" : i}</span>`;
         }
 
         for (i = 1; i <= 30; i++) {
-            elset.innerHTML += `<span style="color: ${getColorForDate(2024, 9, i)}">${i}</span>`;
+            switch (i) {
+                case 5:
+                    elset.innerHTML += `<span style="color: ${getColorForDate(2024, 9, i)}">${"❤️"}</span>`;
+                    break;
+                case 7:
+                    elset.innerHTML += `<span style="color: ${getColorForDate(2024, 9, i)}">${"🏠"}</span>`;
+                    break;
+                default:
+                    elset.innerHTML += `<span style="color: ${getColorForDate(2024, 9, i)}">${i}</span>`;
+                    break;
+            }
         }
 
         for (i = 1; i <= 31; i++) {
-            elout.innerHTML += `<span style="color: ${getColorForDate(2024, 10, i)}">${i}</span>`;
+            elout.innerHTML += `<span style="color: ${getColorForDate(2024, 10, i)}">${i == 5 ? "❤️" : i}</span>`;
         }
 
         for (i = 1; i <= 30; i++) {
-            elnov.innerHTML += `<span style="color: ${getColorForDate(2024, 11, i)}">${i}</span>`;
+            elnov.innerHTML += `<span style="color: ${getColorForDate(2024, 11, i)}">${i == 5 ? "❤️" : i}</span>`;
         }
 
         for (i = 1; i <= 31; i++) {
-            eldez.innerHTML += `<span style="color: ${getColorForDate(2024, 12, i)}">${i}</span>`;
+            switch (i) {
+                case 4:
+                    eldez.innerHTML += `<span style="color: ${getColorForDate(2024, 12, i)}">${"✈️"}</span>`;
+                    break;
+                case 5:
+                    eldez.innerHTML += `<span style="color: ${getColorForDate(2024, 12, i)}">${"❤️"}</span>`;
+                    break;
+                default:
+                    eldez.innerHTML += `<span style="color: ${getColorForDate(2024, 12, i)}">${i}</span>`;
+                    break;
+            }
         }
 
         // Define a data alvo para a contagem regressiva
