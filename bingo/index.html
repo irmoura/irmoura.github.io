@@ -1,314 +1,650 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Cadastrar cartela</title>
-    <style>
-        :root {
-            --bg: #f4f7fb;
-            --card: #ffffff;
-            --text: #1f2937;
-            --muted: #6b7280;
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --success: #16a34a;
-            --success-hover: #15803d;
-            --border: #dbe3ee;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            --radius: 18px;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leitura de Cartela Bingo</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-        * {
-            box-sizing: border-box;
-        }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef2f7;
+      color: #1f2937;
+    }
 
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: linear-gradient(180deg, #eef4ff 0%, var(--bg) 100%);
-            color: var(--text);
-            min-height: 100vh;
-            padding: 24px 14px;
-        }
+    .container {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 20px 16px 40px;
+    }
 
-        .container {
-            max-width: 760px;
-            margin: 0 auto;
-        }
+    .card {
+      background: #fff;
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
 
-        .card {
-            background: var(--card);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            padding: 20px;
-            border: 1px solid rgba(219, 227, 238, 0.8);
-        }
+    h1 {
+      margin: 0 0 10px;
+      font-size: 28px;
+      text-align: center;
+    }
 
-        .header {
-            margin-bottom: 18px;
-        }
+    h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+    }
 
-        .title {
-            margin: 0;
-            font-size: 1.7rem;
-            font-weight: 700;
-        }
+    p {
+      margin: 8px 0 18px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
 
-        .subtitle {
-            margin: 8px 0 0;
-            color: var(--muted);
-            font-size: 0.97rem;
-            line-height: 1.45;
-        }
+    .camera-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #000;
+    }
 
-        .camera-wrapper {
-            position: relative;
-            width: 100%;
-            border-radius: 16px;
-            overflow: hidden;
-            background: #111827;
-            border: 1px solid var(--border);
-        }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
-        video,
-        canvas,
-        img {
-            width: 100%;
-            display: block;
-            border-radius: 16px;
-        }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
 
-        .guide {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .mask-top,
+    .mask-bottom,
+    .mask-left,
+    .mask-right {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.45);
+    }
 
-        .guide-box {
-            width: 78%;
-            aspect-ratio: 1 / 1.12;
-            border: 3px solid rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
-            box-shadow:
-                0 0 0 9999px rgba(0, 0, 0, 0.22),
-                0 0 0 1px rgba(255, 255, 255, 0.18) inset;
-        }
+    .mask-top {
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 10%;
+    }
 
-        .hint {
-            margin-top: 12px;
-            color: var(--muted);
-            font-size: 0.93rem;
-            line-height: 1.4;
-        }
+    .mask-bottom {
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 10%;
+    }
 
-        .actions {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 18px;
-        }
+    .mask-left {
+      top: 10%;
+      bottom: 10%;
+      left: 0;
+      width: 8%;
+    }
 
-        .full {
-            grid-column: 1 / -1;
-        }
+    .mask-right {
+      top: 10%;
+      bottom: 10%;
+      right: 0;
+      width: 8%;
+    }
 
-        button {
-            border: 0;
-            border-radius: 14px;
-            padding: 14px 16px;
-            font-size: 0.98rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.08s ease, opacity 0.2s ease, background 0.2s ease;
-        }
+    .guide {
+      position: absolute;
+      top: 10%;
+      left: 8%;
+      width: 84%;
+      height: 80%;
+      border: 3px solid #22c55e;
+      border-radius: 18px;
+    }
 
-        button:active {
-            transform: scale(0.98);
-        }
+    .guide::before,
+    .guide::after {
+      content: "";
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      border-color: #fff;
+      border-style: solid;
+    }
 
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
+    .guide::before {
+      top: -3px;
+      left: -3px;
+      border-width: 4px 0 0 4px;
+      border-top-left-radius: 12px;
+    }
 
-        .btn-primary:hover {
-            background: var(--primary-hover);
-        }
+    .guide::after {
+      right: -3px;
+      bottom: -3px;
+      border-width: 0 4px 4px 0;
+      border-bottom-right-radius: 12px;
+    }
 
-        .btn-secondary {
-            background: #e5edf9;
-            color: #1e3a8a;
-        }
+    .tip {
+      margin-top: 12px;
+      font-size: 15px;
+      color: #4b5563;
+      text-align: center;
+    }
 
-        .btn-secondary:hover {
-            background: #d8e6fb;
-        }
+    .actions {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
 
-        .btn-success {
-            background: var(--success);
-            color: white;
-        }
+    button {
+      border: 0;
+      border-radius: 16px;
+      padding: 18px 16px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-        .btn-success:hover {
-            background: var(--success-hover);
-        }
+    .btn-primary {
+      background: #2563eb;
+      color: #fff;
+    }
 
-        .preview-section {
-            margin-top: 22px;
-            padding-top: 18px;
-            border-top: 1px solid var(--border);
-        }
+    .btn-secondary {
+      background: #dbeafe;
+      color: #1e3a8a;
+    }
 
-        .preview-title {
-            margin: 0 0 12px;
-            font-size: 1.05rem;
-        }
+    .btn-success {
+      background: #16a34a;
+      color: #fff;
+    }
 
-        .preview-box {
-            border: 1px dashed #b9c7da;
-            border-radius: 16px;
-            padding: 12px;
-            background: #f8fbff;
-            min-height: 120px;
-        }
+    .btn-gray {
+      background: #334155;
+      color: #fff;
+    }
 
-        .preview-empty {
-            color: var(--muted);
-            font-size: 0.95rem;
-            text-align: center;
-            padding: 28px 12px;
-        }
+    .btn-disabled {
+      background: #cbd5e1;
+      color: #64748b;
+      cursor: not-allowed;
+    }
 
-        .hidden {
-            display: none;
-        }
+    .section {
+      margin-top: 26px;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 22px;
+    }
 
-        @media (max-width: 520px) {
-            .title {
-                font-size: 1.4rem;
-            }
+    .frame {
+      border: 2px dashed #cbd5e1;
+      border-radius: 18px;
+      padding: 14px;
+      background: #f8fafc;
+    }
 
-            .actions {
-                grid-template-columns: 1fr;
-            }
+    #preview {
+      width: 100%;
+      display: none;
+      border-radius: 14px;
+      margin-bottom: 10px;
+    }
 
-            .full {
-                grid-column: auto;
-            }
-        }
-    </style>
+    .status {
+      margin-top: 12px;
+      font-size: 15px;
+      text-align: center;
+      color: #6b7280;
+      white-space: pre-line;
+    }
+
+    .ocr-box {
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 14px;
+      padding: 14px;
+      min-height: 120px;
+      font-family: Consolas, monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .numbers-grid {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    .col {
+      background: #fff;
+      border: 1px solid #dbe2ea;
+      border-radius: 12px;
+      padding: 10px 8px;
+      text-align: center;
+    }
+
+    .col-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: #1d4ed8;
+    }
+
+    .cell {
+      min-height: 28px;
+      padding: 4px 0;
+      border-bottom: 1px dashed #e5e7eb;
+      font-weight: bold;
+    }
+
+    .cell:last-child {
+      border-bottom: 0;
+    }
+
+    .small {
+      font-size: 14px;
+      color: #6b7280;
+      margin-top: 10px;
+    }
+
+    canvas {
+      display: none;
+    }
+
+    @media (max-width: 420px) {
+      button {
+        font-size: 16px;
+        padding: 16px 12px;
+      }
+
+      .col-title {
+        font-size: 16px;
+      }
+
+      .cell {
+        font-size: 14px;
+      }
+    }
+  </style>
 </head>
-
 <body>
-    <div class="container">
-        <div class="card">
-            <div class="header">
-                <h1 class="title">Cadastrar cartela</h1>
-                <p class="subtitle">
-                    Aponte a câmera para a cartela física, alinhe dentro da moldura e capture a foto para envio.
-                </p>
-            </div>
+  <div class="container">
+    <div class="card">
+      <h1>Leitor de Cartela</h1>
+      <p>
+        Posicione a cartela dentro da moldura verde. Depois capture a foto e use o OCR para tentar identificar os números.
+      </p>
 
-            <form method="post" action="/Bingo/UploadCartela">
-                <div class="camera-wrapper">
-                    <video id="video" autoplay playsinline></video>
-                    <canvas id="canvas" class="hidden"></canvas>
+      <div class="camera-wrapper">
+        <video id="video" autoplay playsinline muted></video>
 
-                    <div class="guide">
-                        <div class="guide-box"></div>
-                    </div>
-                </div>
-
-                <p class="hint">
-                    Dica: tente manter a cartela reta, bem iluminada e ocupando a maior parte da moldura.
-                </p>
-
-                <div class="actions">
-                    <button type="button" id="btnIniciar" class="btn-primary">
-                        Iniciar câmera
-                    </button>
-
-                    <button type="button" id="btnCapturar" class="btn-secondary">
-                        Capturar foto
-                    </button>
-
-                    <button type="submit" class="btn-success full">
-                        Enviar cartela
-                    </button>
-                </div>
-
-                <input type="hidden" id="imagemBase64" name="ImagemBase64" />
-
-                <div class="preview-section">
-                    <h2 class="preview-title">Prévia da captura</h2>
-
-                    <div class="preview-box">
-                        <div id="previewEmpty" class="preview-empty">
-                            Nenhuma imagem capturada ainda.
-                        </div>
-
-                        <img id="preview" alt="Prévia da foto" class="hidden" />
-                    </div>
-                </div>
-            </form>
+        <div class="overlay">
+          <div class="mask-top"></div>
+          <div class="mask-bottom"></div>
+          <div class="mask-left"></div>
+          <div class="mask-right"></div>
+          <div class="guide"></div>
         </div>
+      </div>
+
+      <div class="tip">
+        Dica: aproxime a cartela, deixe reta e com boa iluminação.
+      </div>
+
+      <div class="actions">
+        <button id="btnStart" class="btn-primary">Iniciar câmera</button>
+        <button id="btnCapture" class="btn-secondary btn-disabled" disabled>Capturar foto</button>
+        <button id="btnOcr" class="btn-success btn-disabled" disabled>Ler números com OCR</button>
+        <button id="btnEnhance" class="btn-gray btn-disabled" disabled>Melhorar imagem</button>
+      </div>
+
+      <div class="section">
+        <h2>Prévia da captura</h2>
+        <div class="frame">
+          <img id="preview" alt="Prévia da captura" />
+          <div id="status" class="status">Nenhuma imagem capturada ainda.</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Texto entendido pelo OCR</h2>
+        <div id="ocrText" class="ocr-box">Ainda não foi feita nenhuma leitura.</div>
+        <div class="small">
+          Aqui aparece o texto bruto que o OCR conseguiu enxergar.
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Números encontrados</h2>
+        <div class="numbers-grid">
+          <div class="col">
+            <div class="col-title">B</div>
+            <div id="colB"></div>
+          </div>
+          <div class="col">
+            <div class="col-title">I</div>
+            <div id="colI"></div>
+          </div>
+          <div class="col">
+            <div class="col-title">N</div>
+            <div id="colN"></div>
+          </div>
+          <div class="col">
+            <div class="col-title">G</div>
+            <div id="colG"></div>
+          </div>
+          <div class="col">
+            <div class="col-title">O</div>
+            <div id="colO"></div>
+          </div>
+        </div>
+      </div>
+
+      <canvas id="canvasFull"></canvas>
+      <canvas id="canvasCrop"></canvas>
     </div>
+  </div>
 
-    <script>
-        const video = document.getElementById('video');
-        const canvas = document.getElementById('canvas');
-        const preview = document.getElementById('preview');
-        const previewEmpty = document.getElementById('previewEmpty');
-        const imagemBase64 = document.getElementById('imagemBase64');
-        const btnIniciar = document.getElementById('btnIniciar');
-        const btnCapturar = document.getElementById('btnCapturar');
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
-        let stream = null;
+  <script>
+    const video = document.getElementById("video");
+    const btnStart = document.getElementById("btnStart");
+    const btnCapture = document.getElementById("btnCapture");
+    const btnOcr = document.getElementById("btnOcr");
+    const btnEnhance = document.getElementById("btnEnhance");
+    const preview = document.getElementById("preview");
+    const statusText = document.getElementById("status");
+    const ocrText = document.getElementById("ocrText");
 
-        btnIniciar.addEventListener('click', async () => {
-            try {
-                if (stream) {
-                    stream.getTracks().forEach(track => track.stop());
-                }
+    const canvasFull = document.getElementById("canvasFull");
+    const canvasCrop = document.getElementById("canvasCrop");
 
-                stream = await navigator.mediaDevices.getUserMedia({
-                    video: {
-                        facingMode: { ideal: "environment" }
-                    },
-                    audio: false
-                });
+    const colB = document.getElementById("colB");
+    const colI = document.getElementById("colI");
+    const colN = document.getElementById("colN");
+    const colG = document.getElementById("colG");
+    const colO = document.getElementById("colO");
 
-                video.srcObject = stream;
-            } catch (erro) {
-                alert('Não foi possível acessar a câmera: ' + erro.message);
-            }
+    let stream = null;
+    let capturedImageBase64 = null;
+    let imageEnhanced = false;
+
+    async function iniciarCamera() {
+      try {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          statusText.textContent = "Este navegador não suporta acesso à câmera.";
+          return;
+        }
+
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: { ideal: "environment" },
+            width: { ideal: 1280 },
+            height: { ideal: 720 }
+          },
+          audio: false
         });
 
-        btnCapturar.addEventListener('click', () => {
-            if (!video.srcObject) {
-                alert('Inicie a câmera primeiro.');
-                return;
+        video.srcObject = stream;
+        await video.play();
+
+        btnCapture.disabled = false;
+        btnCapture.classList.remove("btn-disabled");
+        statusText.textContent = "Câmera iniciada. Posicione a cartela dentro da moldura.";
+      } catch (error) {
+        console.error(error);
+        statusText.textContent = "Não foi possível acessar a câmera. Verifique a permissão.";
+      }
+    }
+
+    function capturarFoto() {
+      const videoWidth = video.videoWidth;
+      const videoHeight = video.videoHeight;
+
+      if (!videoWidth || !videoHeight) {
+        statusText.textContent = "A câmera ainda não está pronta.";
+        return;
+      }
+
+      canvasFull.width = videoWidth;
+      canvasFull.height = videoHeight;
+
+      const ctxFull = canvasFull.getContext("2d");
+      ctxFull.drawImage(video, 0, 0, videoWidth, videoHeight);
+
+      const cropX = Math.floor(videoWidth * 0.08);
+      const cropY = Math.floor(videoHeight * 0.10);
+      const cropWidth = Math.floor(videoWidth * 0.84);
+      const cropHeight = Math.floor(videoHeight * 0.80);
+
+      canvasCrop.width = cropWidth;
+      canvasCrop.height = cropHeight;
+
+      const ctxCrop = canvasCrop.getContext("2d");
+      ctxCrop.drawImage(
+        canvasFull,
+        cropX, cropY, cropWidth, cropHeight,
+        0, 0, cropWidth, cropHeight
+      );
+
+      capturedImageBase64 = canvasCrop.toDataURL("image/jpeg", 0.95);
+      imageEnhanced = false;
+
+      preview.src = capturedImageBase64;
+      preview.style.display = "block";
+
+      btnOcr.disabled = false;
+      btnOcr.classList.remove("btn-disabled");
+      btnEnhance.disabled = false;
+      btnEnhance.classList.remove("btn-disabled");
+
+      ocrText.textContent = "Ainda não foi feita nenhuma leitura.";
+      limparColunas();
+      statusText.textContent = "Imagem capturada com sucesso.";
+    }
+
+    function melhorarImagem() {
+      if (!capturedImageBase64) {
+        statusText.textContent = "Capture uma imagem antes.";
+        return;
+      }
+
+      const ctx = canvasCrop.getContext("2d");
+      const width = canvasCrop.width;
+      const height = canvasCrop.height;
+      const imageData = ctx.getImageData(0, 0, width, height);
+      const data = imageData.data;
+
+      // escala de cinza + contraste simples + limiar
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+
+        let gray = (r + g + b) / 3;
+
+        gray = gray > 150 ? 255 : 0;
+
+        data[i] = gray;
+        data[i + 1] = gray;
+        data[i + 2] = gray;
+      }
+
+      ctx.putImageData(imageData, 0, 0);
+
+      capturedImageBase64 = canvasCrop.toDataURL("image/jpeg", 1.0);
+      preview.src = capturedImageBase64;
+      imageEnhanced = true;
+
+      statusText.textContent = "Imagem melhorada para OCR.";
+    }
+
+    async function lerOcr() {
+      if (!capturedImageBase64) {
+        statusText.textContent = "Capture uma imagem antes de usar OCR.";
+        return;
+      }
+
+      try {
+        statusText.textContent = "Lendo números... isso pode levar alguns segundos.";
+        ocrText.textContent = "Processando OCR...";
+
+        btnOcr.disabled = true;
+        btnCapture.disabled = true;
+        btnStart.disabled = true;
+        btnEnhance.disabled = true;
+
+        const result = await Tesseract.recognize(
+          capturedImageBase64,
+          "eng",
+          {
+            logger: (m) => {
+              if (m.status === "recognizing text") {
+                const progresso = Math.round((m.progress || 0) * 100);
+                statusText.textContent = `Lendo números... ${progresso}%`;
+              }
             }
+          }
+        );
 
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
+        const rawText = result.data.text || "";
+        ocrText.textContent = rawText.trim() || "Nenhum texto encontrado.";
 
-            const context = canvas.getContext('2d');
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const parsed = extrairCartela(rawText);
+        renderizarColunas(parsed);
 
-            const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+        statusText.textContent =
+          parsed.total > 0
+            ? `Leitura concluída. ${parsed.total} número(s) identificado(s).`
+            : "Leitura concluída, mas não consegui separar bem os números.";
 
-            imagemBase64.value = dataUrl;
-            preview.src = dataUrl;
-            preview.classList.remove('hidden');
-            previewEmpty.classList.add('hidden');
-        });
-    </script>
+      } catch (error) {
+        console.error(error);
+        statusText.textContent = "Erro ao executar OCR.";
+        ocrText.textContent = "Falha ao processar OCR.";
+      } finally {
+        btnOcr.disabled = false;
+        btnCapture.disabled = false;
+        btnStart.disabled = false;
+        btnEnhance.disabled = false;
+      }
+    }
+
+    function extrairCartela(texto) {
+      let textoLimpo = texto.toUpperCase();
+
+      textoLimpo = textoLimpo
+        .replace(/[|]/g, " ")
+        .replace(/[^0-9BINGO\s]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+      const numeros = textoLimpo.match(/\d{1,2}/g) || [];
+
+      const resultado = {
+        B: [],
+        I: [],
+        N: [],
+        G: [],
+        O: [],
+        total: 0
+      };
+
+      // separação por faixa de bingo
+      for (const token of numeros) {
+        const n = parseInt(token, 10);
+        if (Number.isNaN(n)) continue;
+
+        if (n >= 1 && n <= 15) resultado.B.push(n);
+        else if (n >= 16 && n <= 30) resultado.I.push(n);
+        else if (n >= 31 && n <= 45) resultado.N.push(n);
+        else if (n >= 46 && n <= 60) resultado.G.push(n);
+        else if (n >= 61 && n <= 75) resultado.O.push(n);
+      }
+
+      resultado.B = ordenarUnicos(resultado.B);
+      resultado.I = ordenarUnicos(resultado.I);
+      resultado.N = ordenarUnicos(resultado.N);
+      resultado.G = ordenarUnicos(resultado.G);
+      resultado.O = ordenarUnicos(resultado.O);
+
+      resultado.total =
+        resultado.B.length +
+        resultado.I.length +
+        resultado.N.length +
+        resultado.G.length +
+        resultado.O.length;
+
+      return resultado;
+    }
+
+    function ordenarUnicos(lista) {
+      return [...new Set(lista)].sort((a, b) => a - b);
+    }
+
+    function renderizarColunas(parsed) {
+      preencherColuna(colB, parsed.B);
+      preencherColuna(colI, parsed.I);
+      preencherColuna(colN, parsed.N);
+      preencherColuna(colG, parsed.G);
+      preencherColuna(colO, parsed.O);
+    }
+
+    function preencherColuna(elemento, valores) {
+      elemento.innerHTML = "";
+
+      if (!valores.length) {
+        for (let i = 0; i < 4; i++) {
+          const div = document.createElement("div");
+          div.className = "cell";
+          div.textContent = "-";
+          elemento.appendChild(div);
+        }
+        return;
+      }
+
+      const maxLinhas = Math.max(4, valores.length);
+
+      for (let i = 0; i < maxLinhas; i++) {
+        const div = document.createElement("div");
+        div.className = "cell";
+        div.textContent = valores[i] ?? "-";
+        elemento.appendChild(div);
+      }
+    }
+
+    function limparColunas() {
+      preencherColuna(colB, []);
+      preencherColuna(colI, []);
+      preencherColuna(colN, []);
+      preencherColuna(colG, []);
+      preencherColuna(colO, []);
+    }
+
+    btnStart.addEventListener("click", iniciarCamera);
+    btnCapture.addEventListener("click", capturarFoto);
+    btnOcr.addEventListener("click", lerOcr);
+    btnEnhance.addEventListener("click", melhorarImagem);
+
+    limparColunas();
+  </script>
 </body>
-
 </html>
