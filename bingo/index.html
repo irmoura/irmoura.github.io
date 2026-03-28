@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cadastrar cartela</title>
+    <style>
+        :root {
+            --bg: #f4f7fb;
+            --card: #ffffff;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --success: #16a34a;
+            --success-hover: #15803d;
+            --border: #dbe3ee;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --radius: 18px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(180deg, #eef4ff 0%, var(--bg) 100%);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 24px 14px;
+        }
+
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            border: 1px solid rgba(219, 227, 238, 0.8);
+        }
+
+        .header {
+            margin-bottom: 18px;
+        }
+
+        .title {
+            margin: 0;
+            font-size: 1.7rem;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            margin: 8px 0 0;
+            color: var(--muted);
+            font-size: 0.97rem;
+            line-height: 1.45;
+        }
+
+        .camera-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #111827;
+            border: 1px solid var(--border);
+        }
+
+        video,
+        canvas,
+        img {
+            width: 100%;
+            display: block;
+            border-radius: 16px;
+        }
+
+        .guide {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .guide-box {
+            width: 78%;
+            aspect-ratio: 1 / 1.12;
+            border: 3px solid rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow:
+                0 0 0 9999px rgba(0, 0, 0, 0.22),
+                0 0 0 1px rgba(255, 255, 255, 0.18) inset;
+        }
+
+        .hint {
+            margin-top: 12px;
+            color: var(--muted);
+            font-size: 0.93rem;
+            line-height: 1.4;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        button {
+            border: 0;
+            border-radius: 14px;
+            padding: 14px 16px;
+            font-size: 0.98rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.08s ease, opacity 0.2s ease, background 0.2s ease;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: #e5edf9;
+            color: #1e3a8a;
+        }
+
+        .btn-secondary:hover {
+            background: #d8e6fb;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: var(--success-hover);
+        }
+
+        .preview-section {
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
+        }
+
+        .preview-title {
+            margin: 0 0 12px;
+            font-size: 1.05rem;
+        }
+
+        .preview-box {
+            border: 1px dashed #b9c7da;
+            border-radius: 16px;
+            padding: 12px;
+            background: #f8fbff;
+            min-height: 120px;
+        }
+
+        .preview-empty {
+            color: var(--muted);
+            font-size: 0.95rem;
+            text-align: center;
+            padding: 28px 12px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 520px) {
+            .title {
+                font-size: 1.4rem;
+            }
+
+            .actions {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h1 class="title">Cadastrar cartela</h1>
+                <p class="subtitle">
+                    Aponte a câmera para a cartela física, alinhe dentro da moldura e capture a foto para envio.
+                </p>
+            </div>
+
+            <form method="post" action="/Bingo/UploadCartela">
+                <div class="camera-wrapper">
+                    <video id="video" autoplay playsinline></video>
+                    <canvas id="canvas" class="hidden"></canvas>
+
+                    <div class="guide">
+                        <div class="guide-box"></div>
+                    </div>
+                </div>
+
+                <p class="hint">
+                    Dica: tente manter a cartela reta, bem iluminada e ocupando a maior parte da moldura.
+                </p>
+
+                <div class="actions">
+                    <button type="button" id="btnIniciar" class="btn-primary">
+                        Iniciar câmera
+                    </button>
+
+                    <button type="button" id="btnCapturar" class="btn-secondary">
+                        Capturar foto
+                    </button>
+
+                    <button type="submit" class="btn-success full">
+                        Enviar cartela
+                    </button>
+                </div>
+
+                <input type="hidden" id="imagemBase64" name="ImagemBase64" />
+
+                <div class="preview-section">
+                    <h2 class="preview-title">Prévia da captura</h2>
+
+                    <div class="preview-box">
+                        <div id="previewEmpty" class="preview-empty">
+                            Nenhuma imagem capturada ainda.
+                        </div>
+
+                        <img id="preview" alt="Prévia da foto" class="hidden" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const preview = document.getElementById('preview');
+        const previewEmpty = document.getElementById('previewEmpty');
+        const imagemBase64 = document.getElementById('imagemBase64');
+        const btnIniciar = document.getElementById('btnIniciar');
+        const btnCapturar = document.getElementById('btnCapturar');
+
+        let stream = null;
+
+        btnIniciar.addEventListener('click', async () => {
+            try {
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                }
+
+                stream = await navigator.mediaDevices.getUserMedia({
+                    video: {
+                        facingMode: { ideal: "environment" }
+                    },
+                    audio: false
+                });
+
+                video.srcObject = stream;
+            } catch (erro) {
+                alert('Não foi possível acessar a câmera: ' + erro.message);
+            }
+        });
+
+        btnCapturar.addEventListener('click', () => {
+            if (!video.srcObject) {
+                alert('Inicie a câmera primeiro.');
+                return;
+            }
+
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+
+            imagemBase64.value = dataUrl;
+            preview.src = dataUrl;
+            preview.classList.remove('hidden');
+            previewEmpty.classList.add('hidden');
+        });
+    </script>
+</body>
+
+</html>
